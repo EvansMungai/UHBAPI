@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using UHB.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => 
+builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title= "UHB API", Description= "Making university hostel booking process a seamless easy process", Version="v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "UHB API", Description = "Making university hostel booking process a seamless easy process", Version = "v1" });
 });
 
 var app = builder.Build();
@@ -16,12 +18,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI( c =>
+    app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "UHB API V1");
     });
 }
 
 app.MapGet("/", () => "Hello World!");
-app.Run();
+app.MapGet("/hostels", () => DB.GetHostels());
+app.MapGet("/hostels/{id}", (int id) => DB.GetHostel(id));
+app.MapPost("/hostels", ([FromBody]Hostel hostel)=> DB.CreateHostel(hostel));
+app.MapPut("/hostels", ([FromBody]Hostel hostel)=> DB.UpdateHostel(hostel));
 
+
+app.Run();
