@@ -1,13 +1,7 @@
-﻿namespace UHB.DB;
+﻿
+using UHB.Models;
 
-public record Hostel
-{
-    public int NO { get; set; }
-    public string? Name { get; set; }
-    public string? Type { get; set; }
-    public int Capacity { get; set; }
-}
-public class DB
+public class HostelService
 {
     public static List<Hostel> _hostels = new List<Hostel>()
     {

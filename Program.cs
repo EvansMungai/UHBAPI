@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using UHB.DB;
+using UHB.Helpers;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +27,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () => "Hello World!");
-app.MapGet("/hostels", () => DB.GetHostels());
-app.MapGet("/hostels/{id}", (int id) => DB.GetHostel(id));
-app.MapPost("/hostels", ([FromBody]Hostel hostel)=> DB.CreateHostel(hostel));
-app.MapPut("/hostels", ([FromBody]Hostel hostel)=> DB.UpdateHostel(hostel));
 
+RouteResolutionHelper.addMappings(app);
 
 app.Run();
