@@ -17,13 +17,16 @@ public class HostelService
         _hostels.Add(hostel);
         return hostel;
     }
-    public static Hostel UpdateHostel(Hostel update)
+    public static Hostel UpdateHostel(Hostel update, int id)
     {
         _hostels = _hostels.Select(hostel =>
         {
-            if (hostel.NO == update.NO)
+            if (hostel.NO == id)
             {
+                hostel.NO = update.NO;
                 hostel.Name = update.Name;
+                hostel.Capacity = update.Capacity;
+                hostel.Type = update.Type;
             }
             return hostel;
         }).ToList();

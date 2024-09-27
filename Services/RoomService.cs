@@ -18,10 +18,10 @@ namespace UHB.Services
             _rooms.Add(room);
             return room;
         }
-        public static Rooms UpdateRoom(Rooms update)
+        public static Rooms UpdateRoom(Rooms update, string id)
         {
             _rooms = _rooms.Select(room => {
-                if (room.RoomNo == update.RoomNo)
+                if (room.RoomNo == id)
                 {
                     room.HostelNo = update.HostelNo;
                 } return room;
