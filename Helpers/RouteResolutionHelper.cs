@@ -12,7 +12,8 @@ namespace UHB.Helpers
             app.MapGet("/hostels", () => HostelService.GetHostels());
             app.MapGet("/hostels/{id}", (int id) => HostelService.GetHostel(id));
             app.MapPost("/hostels", ([FromBody] Hostel hostel) => HostelService.CreateHostel(hostel));
-            app.MapPut("/hostels/{id}", ([FromBody] Hostel hostel, int id) => HostelService.UpdateHostel(hostel,id));
+            app.MapPut("/hostels/{id}", ([FromBody] Hostel hostel, int id) => HostelService.UpdateHostel(hostel, id));
+            app.MapDelete("/hostel/{id}", (int id) => HostelService.RemoveHostel(id));
 
             // Student Routes
             app.MapGet("/students", () => StudentService.GetStudents());
@@ -23,9 +24,9 @@ namespace UHB.Helpers
             // Room Routes
             app.MapGet("/rooms", () => RoomService.GetRooms());
             app.MapGet("/rooms/{id}", (string id) => RoomService.GetRoom(id));
-            app.MapPost("/rooms", ([FromBody] Rooms room)=>RoomService.CreateRoom(room));
-            app.MapPut("/rooms/{id}", ([FromBody] Rooms room, string id)=>RoomService.UpdateRoom(room, id));
-
+            app.MapPost("/rooms", ([FromBody] Rooms room) => RoomService.CreateRoom(room));
+            app.MapPut("/rooms/{id}", ([FromBody] Rooms room, string id) => RoomService.UpdateRoom(room, id));
+            app.MapDelete("/rooms/{id}", (string id) => RoomService.RemoveRoom(id));
         }
     }
 }

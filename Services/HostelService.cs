@@ -32,8 +32,10 @@ public class HostelService
         }).ToList();
         return update;
     }
-    //public static  Hostel RemoveHostel(int id)
-    //{
-    //    _hostels = _hostels.FindAll(hostel => hostel.NO == id).ToList();
-    //}
+    public static Hostel RemoveHostel(int id)
+    {
+        var itemToRemove = _hostels.SingleOrDefault(r => r.NO == id);
+        if (itemToRemove != null) _hostels.Remove(itemToRemove);
+        return itemToRemove;
+    }
 }

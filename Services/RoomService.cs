@@ -28,5 +28,11 @@ namespace UHB.Services
             }).ToList();
             return update;
         }
+        public static Rooms RemoveRoom(string id)
+        {
+            var roomToRemove = _rooms.SingleOrDefault(r =>  r.RoomNo == id);
+            if (roomToRemove != null) _rooms.Remove(roomToRemove);
+            return roomToRemove;
+        }
     }
 }
