@@ -29,7 +29,7 @@ public class HostelService
         }).ToList();
         return update;
     }
-    //public static Hostel RemoveHostel(int id)
+    //public static  Hostel RemoveHostel(int id)
     //{
     //    _hostels = _hostels.FindAll(hostel => hostel.NO == id).ToList();
     //}

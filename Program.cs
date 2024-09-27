@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using UHB.Helpers;
 
