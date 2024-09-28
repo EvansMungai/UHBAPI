@@ -27,7 +27,6 @@ public class StudentService
             student.firstName = update.firstName;
             student.secondName = update.secondName;
             student.gender = update.gender;
-            return update;
         }
         return student;
     }
@@ -37,7 +36,6 @@ public class StudentService
         if (student != null)
         {
             _students.Remove(student);
-            return student;
         }
         return student;
     }
