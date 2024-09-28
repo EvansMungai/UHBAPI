@@ -1,4 +1,5 @@
-﻿using UHB.Models;
+﻿using System.Security.Cryptography.X509Certificates;
+using UHB.Models;
 
 public class StudentService
 {
@@ -16,17 +17,4 @@ public class StudentService
         _students.Add(student);
         return student;
     }
-    public static Student UpdateStudent(Student update)
-    {
-        _students = _students.Select(student =>
-        {
-            if (student.regNo == update.regNo)
-            {
-                student.surname = update.surname;
-            }
-            return update;
-        }).ToList();
-        return update;
-    }
-
 }
