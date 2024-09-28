@@ -17,25 +17,25 @@ public class HostelService
         _hostels.Add(hostel);
         return hostel;
     }
-    public static Hostel UpdateHostel(Hostel update, int id)
+    public static Hostel? UpdateHostel(Hostel update, int id)
     {
-        _hostels = _hostels.Select(hostel =>
+        Hostel? hostel = GetHostel(id);
+        if (hostel != null)
         {
-            if (hostel.NO == id)
-            {
-                hostel.NO = update.NO;
-                hostel.Name = update.Name;
-                hostel.Capacity = update.Capacity;
-                hostel.Type = update.Type;
-            }
-            return hostel;
-        }).ToList();
-        return update;
+            hostel.NO = update.NO;
+            hostel.Name = update.Name;
+            hostel.Capacity = update.Capacity;
+            hostel.Type = update.Type;
+        }
+        return hostel;
     }
-    public static Hostel RemoveHostel(int id)
+    public static Hostel? RemoveHostel(int id)
     {
-        var itemToRemove = _hostels.SingleOrDefault(r => r.NO == id);
-        if (itemToRemove != null) _hostels.Remove(itemToRemove);
-        return itemToRemove;
+        Hostel? hostel = GetHostel(id);
+        if(hostel != null)
+        {
+            _hostels.Remove(hostel);
+        }
+        return hostel;
     }
 }
