@@ -17,10 +17,10 @@ namespace UHB.Helpers
 
             // Student Routes
             app.MapGet("/students", () => StudentService.GetStudents());
-            //app.MapGet("/student/{id}", (string id) => StudentService.GetRegNo(id));
+            app.MapGet("/student/{id}", (string id) => StudentService.GetStudent(id));
             app.MapPost("/students", ([FromBody] Student student) => StudentService.CreateStudent(student));
-            //app.MapPut("/students/{id}", ([FromBody] Student student, string id) => StudentService.UpdateStudent(student, id));
-            //app.MapDelete("/students/{id}", (string id) => StudentService.RemoveStudent(id));
+            app.MapPut("/students/{id}", ([FromBody] Student student, string id) => StudentService.UpdateStudent(student, id));
+            app.MapDelete("/students/{id}", (string id) => StudentService.RemoveStudent(id));
 
             // Room Routes
             app.MapGet("/rooms", () => RoomService.GetRooms());
