@@ -28,6 +28,15 @@ namespace UHB.Helpers
             app.MapPost("/rooms", ([FromBody] Rooms room) => RoomService.CreateRoom(room));
             app.MapPut("/rooms/{id}", ([FromBody] Rooms room, string id) => RoomService.UpdateRoom(room, id));
             app.MapDelete("/rooms/{id}", (string id) => RoomService.RemoveRoom(id));
+
+            // Applications Routes
+            app.MapGet("/applications", () => ApplicationService.GetApplications());
+            app.MapGet("/applications/{id}", (int id) => ApplicationService.GetApplication(id));
+            app.MapPost("/applications", ([FromBody] Applications application) => ApplicationService.CreateApplications(application));
+            app.MapPut("/applications/{id}", ([FromBody] Applications application, int id) => ApplicationService.UpdateApplicationDetails(application, id));
+            app.MapPut("/applications/{id}/status", ([FromBody] string status, int id) => ApplicationService.UpdateApplicationStatus(status, id));
+            app.MapPut("/applications/{id}/room", ([FromBody] string room, int id) => ApplicationService.UpdateRoomNo(room, id));
+            app.MapDelete("/applications/{id}", (int id) => ApplicationService.RemoveApplication(id));
         }
     }
 }
