@@ -5,8 +5,8 @@ namespace UHB.Services
     {
         public static List<Rooms> _rooms = new List<Rooms>()
         {
-            new Rooms{ RoomNo= "1", HostelNo= "1" },
-            new Rooms{ RoomNo= "2", HostelNo= "1" }
+            new Rooms{ RoomNo= "B1", HostelNo= "1" },
+            new Rooms{ RoomNo= "B2", HostelNo= "1" }
         };
         public static List<Rooms> GetRooms() { return _rooms; }
         public static Rooms? GetRoom(string id)
@@ -18,21 +18,24 @@ namespace UHB.Services
             _rooms.Add(room);
             return room;
         }
-        public static Rooms UpdateRoom(Rooms update, string id)
+        public static Rooms? UpdateRoom(Rooms update, string id)
         {
-            _rooms = _rooms.Select(room => {
-                if (room.RoomNo == id)
-                {
-                    room.HostelNo = update.HostelNo;
-                } return room;
-            }).ToList();
-            return update;
+            Rooms? room = GetRoom(id);
+            if (room != null)
+            {
+                room.RoomNo = update.RoomNo;
+                room.HostelNo = update.HostelNo;
+            }
+            return room;
         }
-        public static Rooms RemoveRoom(string id)
+        public static Rooms? RemoveRoom(string id)
         {
-            var roomToRemove = _rooms.SingleOrDefault(r =>  r.RoomNo == id);
-            if (roomToRemove != null) _rooms.Remove(roomToRemove);
-            return roomToRemove;
+            Rooms? room = GetRoom(id);
+            if (room != null)
+            {
+                _rooms.Remove(room);
+            }
+            return room;
         }
     }
 }
