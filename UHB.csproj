@@ -4,10 +4,31 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>75cc5fc7-168d-4712-b459-bb66b4dbd2e2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="uhb\**" />
+    <Content Remove="uhb\**" />
+    <EmbeddedResource Remove="uhb\**" />
+    <None Remove="uhb\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\ApplicationService.cs" />
+    <Compile Remove="Services\HostelService.cs" />
+    <Compile Remove="Services\RoomService.cs" />
+    <Compile Remove="Services\StudentService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
