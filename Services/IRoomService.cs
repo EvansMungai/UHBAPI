@@ -6,7 +6,7 @@ namespace UHB.Services
     {
         List<Room> GetRooms();
         List<Room> GetRoom(string id);
-        //Room CreateRoom(Room room);
+        Room CreateRoom(Room room);
         //Room? UpdateRoom(Room update, string id);
         //Room? RemoveRoom(string id);
     }

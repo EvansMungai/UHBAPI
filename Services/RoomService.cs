@@ -10,12 +10,6 @@ namespace UHB.Services
         {
             _context = context;
         }
-
-        //public static List<Room> _rooms = new List<Room>()
-        //{
-        //    new Room{ RoomNo= "B1", HostelNo= "1" },
-        //    new Room{ RoomNo= "B2", HostelNo= "1" }
-        //};
         public  List<Room> GetRooms() { return _context.Rooms.ToList(); }
         public  List<Room> GetRoom(string id)
         {
