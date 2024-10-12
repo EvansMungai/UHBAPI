@@ -5,6 +5,7 @@ namespace UHB.Services
     public interface IStudentService
     {
         List<Student> GetStudents();
-        Student? GetStudent(string regNo);
+        List<Student> GetStudent(string regNo);
+        Student CreateStudent(Student student);
     }
 }

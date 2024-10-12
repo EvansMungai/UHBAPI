@@ -10,21 +10,26 @@ namespace UHB.Services
         {
             _context = context;
         }
-    //    public static List<Student> _students = new List<Student>()
-    //{
-    //    new Student { regNo = "C026-01-0914/2022", surname="Njagi", firstName="Griffins", secondName="Gitari"}
-    //};
         public List<Student> GetStudents() { return _context.Students.ToList(); }
-        public Student? GetStudent(string regNo)
+        public List<Student> GetStudent(string regNo)
         {
             regNo = getRegNo(regNo);
-            return _context.Students.SingleOrDefault(Student => Student.RegNo == regNo);
+            return _context.Students.Where(s => s.RegNo == regNo).ToList();
         }
-        //public static Student CreateStudent(Student student)
-        //{
-        //    _students.Add(student);
-        //    return student;
-        //}
+        public Student CreateStudent(Student student)
+        {
+            var newStudent = new Student
+            {
+                RegNo = student.RegNo,
+                Surname = student.Surname,
+                FirstName = student.FirstName,
+                SecondName = student.SecondName,
+                Gender = student.Gender
+            };
+            _context.Students.Add(newStudent);
+            _context.SaveChanges();
+            return student;
+        }
         //public static Student? UpdateStudent(Student update, string regNo)
         //{
         //    Student? student = GetStudent(regNo);

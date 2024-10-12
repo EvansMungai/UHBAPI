@@ -15,17 +15,17 @@ namespace UHB.Services
         {
             return _context.Rooms.Where(a => a.RoomNo == id).ToList();
         }
-        //public Room CreateRoom(Room room)
-        //{
-        //    var newRoom = new Room
-        //    {
-        //        RoomNo = room.RoomNo,
-        //        HostelNo = room.HostelNo,
-        //    };
-        //    _context.Rooms.Add(newRoom);
-        //    _context.SaveChanges();
-        //    return room;
-        //}
+        public Room CreateRoom(Room room)
+        {
+            var newRoom = new Room
+            {
+                RoomNo = room.RoomNo,
+                HostelNo = room.HostelNo,
+            };
+            _context.Rooms.Add(newRoom);
+            _context.SaveChanges();
+            return room;
+        }
         //public Room? UpdateRoom(Room update, string id)
         //{
         //    Room? room = GetRoom(id);

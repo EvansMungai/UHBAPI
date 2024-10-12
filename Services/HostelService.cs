@@ -12,12 +12,20 @@ namespace UHB.Services
         }
 
         public List<Hostel> GetHostels() { return _context.Hostels.ToList(); }
-        public List<Hostel?> GetHostel(string id) { return _context.Hostels.Where(h => h.HostelNo == id).ToList(); }
-        //public static Hostel CreateHostel(Hostel hostel)
-        //{
-        //    _hostels.Add(hostel);
-        //    return hostel;
-        //}
+        public List<Hostel> GetHostel(string id) { return _context.Hostels.Where(h => h.HostelNo == id).ToList(); }
+        public Hostel CreateHostel(Hostel hostel)
+        {
+            var newHostel = new Hostel
+            {
+                HostelNo = hostel.HostelNo,
+                HostelName = hostel.HostelName,
+                Capacity = hostel.Capacity,
+                Type = hostel.Type
+            };
+            _context.Hostels.Add(newHostel);
+            _context.SaveChanges();
+            return hostel;
+        }
         //public static Hostel? UpdateHostel(Hostel update, int id)
         //{
         //    Hostel? hostel = GetHostel(id);
