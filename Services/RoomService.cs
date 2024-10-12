@@ -1,42 +1,55 @@
-﻿using UHB.Models;
+﻿using UHB.Data;
+using UHB.Models;
 
 namespace UHB.Services
 {
-    public class RoomService
+    public class RoomService : IRoomService
     {
-        public static List<Rooms> _rooms = new List<Rooms>()
+        private readonly UhbContext _context;
+        public RoomService(UhbContext context)
         {
-            new Rooms{ RoomNo= "B1", HostelNo= "1" },
-            new Rooms{ RoomNo= "B2", HostelNo= "1" }
-        };
-        public static List<Rooms> GetRooms() { return _rooms; }
-        public static Rooms? GetRoom(string id)
-        {
-            return _rooms.SingleOrDefault(room => room.RoomNo == id);
+            _context = context;
         }
-        public static Rooms CreateRoom(Rooms room)
+
+        //public static List<Room> _rooms = new List<Room>()
+        //{
+        //    new Room{ RoomNo= "B1", HostelNo= "1" },
+        //    new Room{ RoomNo= "B2", HostelNo= "1" }
+        //};
+        public  List<Room> GetRooms() { return _context.Rooms.ToList(); }
+        public  List<Room> GetRoom(string id)
         {
-            _rooms.Add(room);
-            return room;
+            return _context.Rooms.Where(a => a.RoomNo == id).ToList();
         }
-        public static Rooms? UpdateRoom(Rooms update, string id)
-        {
-            Rooms? room = GetRoom(id);
-            if (room != null)
-            {
-                room.RoomNo = update.RoomNo;
-                room.HostelNo = update.HostelNo;
-            }
-            return room;
-        }
-        public static Rooms? RemoveRoom(string id)
-        {
-            Rooms? room = GetRoom(id);
-            if (room != null)
-            {
-                _rooms.Remove(room);
-            }
-            return room;
-        }
+        //public Room CreateRoom(Room room)
+        //{
+        //    var newRoom = new Room
+        //    {
+        //        RoomNo = room.RoomNo,
+        //        HostelNo = room.HostelNo,
+        //    };
+        //    _context.Rooms.Add(newRoom);
+        //    _context.SaveChanges();
+        //    return room;
+        //}
+        //public Room? UpdateRoom(Room update, string id)
+        //{
+        //    Room? room = GetRoom(id);
+        //    if (room != null)
+        //    {
+        //        room.RoomNo = update.RoomNo;
+        //        room.HostelNo = update.HostelNo;
+        //    }
+        //    return room;
+        //}
+        //public Room? RemoveRoom(string id)
+        //{
+        //    Room? room = GetRoom(id);
+        //    if (room != null)
+        //    {
+        //        _rooms.Remove(room);
+        //    }
+        //    return room;
+        //}
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UHB.Models;
+namespace UHB.uhb;
 
 public partial class Hostel
 {

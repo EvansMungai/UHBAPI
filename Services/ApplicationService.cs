@@ -1,71 +1,85 @@
-﻿using UHB.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using UHB.Data;
+using UHB.Models;
 
 namespace UHB.Services
 {
-    public class ApplicationService
+    public class ApplicationService : IApplicationService
     {
-        public static List<Applications> _applications = new List<Applications>()
+        private readonly UhbContext _context;
+        public ApplicationService(UhbContext context)
         {
-            new Applications{ Id= 1, Period="2022", RegNO="C026-01-0914/2022", PHostel="Batian", Status="Pending Review", Disability=false, Accommodated=false, Sponsored=false, Helb=false, Bursary=false, WSBenefits=false, SpecialExams=false, ConsiderationReason="I am worth it" }
-        };
-        public static List<Applications> GetApplications() { return _applications; }
-        public static Applications? GetApplication(int id) { return _applications.SingleOrDefault(a => a.Id == id); }
-        public static Applications CreateApplications(Applications applications)
+            _context = context;
+        }
+        public List<Application> GetApplications()
         {
-            _applications.Add(applications);
+            var applications = _context.Applications.ToList();
             return applications;
         }
-        public static Applications? UpdateApplicationDetails(Applications update, int id)
+
+        public List<Application?> GetApplication(int id)
         {
-            Applications? applications = GetApplication(id);
-            if (applications != null)
-            {
-                applications.Period = update.Period;
-                applications.RegNO = update.RegNO;
-                applications.PHostel = update.PHostel;
-                applications.Disability = update.Disability;
-                applications.DDetails = update.DDetails;
-                applications.Accommodated = update.Accommodated;
-                applications.APeriod = update.APeriod;
-                applications.Sponsored = update.Sponsored;
-                applications.Sponsor = update.Sponsor;
-                applications.Helb = update.Helb;
-                applications.HAmount = update.HAmount;
-                applications.Bursary = update.Bursary;
-                applications.BAmount = update.BAmount;
-                applications.WSBenefits = update.WSBenefits;
-                applications.WSPeriod = update.WSPeriod;
-                applications.SpecialExams = update.SpecialExams;
-                applications.SpecialPeriod = update.SpecialPeriod;
-                applications.ConsiderationReason = update.ConsiderationReason;
-            }
-            return applications;
+            return _context.Applications.Where(a => a.ApplicationNo == id).ToList();
         }
-        public static Applications? UpdateApplicationStatus(string status, int id)
-        {
-            Applications? applications = GetApplication(id);
-            if (applications != null)
-            {
-                applications.Status = status;
-            }
-            return applications;
-        }
-        public static Applications? UpdateRoomNo(string roomNo, int id) {
-            Applications? applications = GetApplication(id);
-            if (applications != null)
-            {
-                applications.RNo= roomNo;
-            }
-            return applications;
-        }
-        public static Applications? RemoveApplication(int id)
-        {
-            Applications? application = GetApplication(id);
-            if (application != null)
-            {
-                _applications.Remove(application);
-            }
-            return application;
-        }
+        //public async Task<Application> CreateApplication(Application Application)
+        //{
+        //    _context.Applications.Add(Application);
+        //    _context.SaveChangesAsync();
+        //    return Application;
+        //}
+        //public <List<Application?> UpdateApplicationDetails(Application update, int id)
+        //{
+        //    var application = GetApplication(id);
+        //    if (application != null)
+        //    {
+        //        Application.Period = update.Period;
+        //        Application.RegNO = update.RegNO;
+        //        Application.PHostel = update.PHostel;
+        //        Application.Disability = update.Disability;
+        //        Application.DDetails = update.DDetails;
+        //        Application.Accommodated = update.Accommodated;
+        //        Application.APeriod = update.APeriod;
+        //        Application.Sponsored = update.Sponsored;
+        //        Application.Sponsor = update.Sponsor;
+        //        Application.Helb = update.Helb;
+        //        Application.HAmount = update.HAmount;
+        //        Application.Bursary = update.Bursary;
+        //        Application.BAmount = update.BAmount;
+        //        Application.WSBenefits = update.WSBenefits;
+        //        Application.WSPeriod = update.WSPeriod;
+        //        Application.SpecialExams = update.SpecialExams;
+        //        Application.SpecialPeriod = update.SpecialPeriod;
+        //        Application.ConsiderationReason = update.ConsiderationReason;
+        //    }
+        //    return Application;
+        //}
+        //public static Application? UpdateApplicationStatus(string status, int id)
+        //{
+        //    Application? Application = GetApplication(id);
+        //    if (Application != null)
+        //    {
+        //        Application.Status = status;
+        //    }
+        //    return Application;
+        //}
+        //public static Application? UpdateRoomNo(string roomNo, int id)
+        //{
+        //    Application? Application = GetApplication(id);
+        //    if (Application != null)
+        //    {
+        //        Application.RNo = roomNo;
+        //    }
+        //    return Application;
+        //}
+        //public static Application? RemoveApplication(int id)
+        //{
+        //    Application? application = GetApplication(id);
+        //    if (application != null)
+        //    {
+        //        _applications.Remove(application);
+        //    }
+        //    return application;
+        //}
     }
 }
