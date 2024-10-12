@@ -10,28 +10,22 @@ namespace UHB.Services
         {
             _context = context;
         }
-
-        //public static List<Room> _rooms = new List<Room>()
-        //{
-        //    new Room{ RoomNo= "B1", HostelNo= "1" },
-        //    new Room{ RoomNo= "B2", HostelNo= "1" }
-        //};
         public  List<Room> GetRooms() { return _context.Rooms.ToList(); }
         public  List<Room> GetRoom(string id)
         {
             return _context.Rooms.Where(a => a.RoomNo == id).ToList();
         }
-        //public Room CreateRoom(Room room)
-        //{
-        //    var newRoom = new Room
-        //    {
-        //        RoomNo = room.RoomNo,
-        //        HostelNo = room.HostelNo,
-        //    };
-        //    _context.Rooms.Add(newRoom);
-        //    _context.SaveChanges();
-        //    return room;
-        //}
+        public Room CreateRoom(Room room)
+        {
+            var newRoom = new Room
+            {
+                RoomNo = room.RoomNo,
+                HostelNo = room.HostelNo,
+            };
+            _context.Rooms.Add(newRoom);
+            _context.SaveChanges();
+            return room;
+        }
         //public Room? UpdateRoom(Room update, string id)
         //{
         //    Room? room = GetRoom(id);

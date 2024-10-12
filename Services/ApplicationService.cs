@@ -18,16 +18,37 @@ namespace UHB.Services
             return applications;
         }
 
-        public List<Application?> GetApplication(int id)
+        public List<Application> GetApplication(int id)
         {
             return _context.Applications.Where(a => a.ApplicationNo == id).ToList();
         }
-        //public async Task<Application> CreateApplication(Application Application)
-        //{
-        //    _context.Applications.Add(Application);
-        //    _context.SaveChangesAsync();
-        //    return Application;
-        //}
+        public Application CreateApplication(Application application)
+        {
+            var newApplication = new Application
+            {
+                ApplicationPeriod = application.ApplicationPeriod,
+                RegistrationNo = application.RegistrationNo,
+                PreferredHostel = application.PreferredHostel,
+                Disability = application.Disability,
+                DisabilityDetails = application.DisabilityDetails,
+                AccommodatedBefore = application.AccommodatedBefore,
+                AccommodationPeriod = application.AccommodationPeriod,
+                IsSponsored = application.IsSponsored,
+                Sponsor = application.Sponsor,
+                ReceivesHelb = application.ReceivesHelb,
+                HelbAmount = application.HelbAmount,
+                ReceivedBursary = application.ReceivedBursary,
+                BursaryAmount = application.BursaryAmount,
+                WorkStudyBenefitsBefore = application.WorkStudyBenefitsBefore,
+                WorkStudyPeriod = application.WorkStudyPeriod,
+                SpecialExamsOnFinancialGrounds = application.SpecialExamsOnFinancialGrounds,
+                SpecialExamPeriod = application.SpecialExamPeriod,
+                ReasonsForConsideration = application.ReasonsForConsideration
+            };
+            _context.Applications.Add(newApplication);
+            _context.SaveChangesAsync();
+            return application;
+        }
         //public <List<Application?> UpdateApplicationDetails(Application update, int id)
         //{
         //    var application = GetApplication(id);
