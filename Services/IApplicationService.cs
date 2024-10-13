@@ -12,5 +12,6 @@ namespace UHB.Services
         Application? UpdateApplicationDetails(Application update, int id);
         Application? UpdateApplicationStatus(string status, int id);
         Application? UpdateRoomNo(string roomNo, int id);
+        Application? RemoveApplication(int id);
     }
 }
