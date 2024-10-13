@@ -30,19 +30,22 @@ namespace UHB.Services
             _context.SaveChanges();
             return student;
         }
-        //public static Student? UpdateStudent(Student update, string regNo)
-        //{
-        //    Student? student = GetStudent(regNo);
-        //    if (student != null)
-        //    {
-        //        student.regNo = update.regNo;
-        //        student.surname = update.surname;
-        //        student.firstName = update.firstName;
-        //        student.secondName = update.secondName;
-        //        student.gender = update.gender;
-        //    }
-        //    return student;
-        //}
+        public Student? UpdateStudent(Student update, string regNo)
+        {
+            regNo = getRegNo(regNo);
+            var student = _context.Students.FirstOrDefault(s => s.RegNo == regNo);
+            if (student != null)
+            {
+                //student.RegNo = update.RegNo;
+                student.Surname = update.Surname;
+                student.FirstName = update.FirstName;
+                student.SecondName = update.SecondName;
+                student.Gender = update.Gender;
+                _context.Update(update);
+                _context.SaveChanges();
+            }
+            return student;
+        }
         //public static Student? RemoveStudent(string regNo)
         //{
         //    Student? student = GetStudent(regNo);

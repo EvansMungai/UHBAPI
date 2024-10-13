@@ -26,16 +26,18 @@ namespace UHB.Services
             _context.SaveChanges();
             return room;
         }
-        //public Room? UpdateRoom(Room update, string id)
-        //{
-        //    Room? room = GetRoom(id);
-        //    if (room != null)
-        //    {
-        //        room.RoomNo = update.RoomNo;
-        //        room.HostelNo = update.HostelNo;
-        //    }
-        //    return room;
-        //}
+        public Room? UpdateRoom(Room update, string id)
+        {
+            var room = _context.Rooms.Where(r => r.RoomNo == id).Single();
+            if (room != null)
+            {
+                room.RoomNo = update.RoomNo;
+                room.HostelNo = update.HostelNo;
+                _context.Update(room);
+                _context.SaveChanges();
+            }
+            return room;
+        }
         //public Room? RemoveRoom(string id)
         //{
         //    Room? room = GetRoom(id);

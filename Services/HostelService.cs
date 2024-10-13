@@ -26,18 +26,20 @@ namespace UHB.Services
             _context.SaveChanges();
             return hostel;
         }
-        //public static Hostel? UpdateHostel(Hostel update, int id)
-        //{
-        //    Hostel? hostel = GetHostel(id);
-        //    if (hostel != null)
-        //    {
-        //        hostel.NO = update.NO;
-        //        hostel.Name = update.Name;
-        //        hostel.Capacity = update.Capacity;
-        //        hostel.Type = update.Type;
-        //    }
-        //    return hostel;
-        //}
+        public Hostel? UpdateHostel(Hostel update, string id)
+        {
+            var hostel = _context.Hostels.Where(h => h.HostelNo == id).Single();
+            if (hostel != null)
+            {
+                hostel.HostelNo = update.HostelNo;
+                hostel.HostelName = update.HostelName;
+                hostel.Capacity = update.Capacity;
+                hostel.Type = update.Type;
+                _context.Update(hostel);
+                _context.SaveChanges();
+            }
+            return hostel;
+        }
         //public static Hostel? RemoveHostel(int id)
         //{
         //    Hostel? hostel = GetHostel(id);

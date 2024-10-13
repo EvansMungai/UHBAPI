@@ -7,5 +7,6 @@ namespace UHB.Services
         List<Student> GetStudents();
         List<Student> GetStudent(string regNo);
         Student CreateStudent(Student student);
+        Student? UpdateStudent(Student update, string regNo);
     }
 }
