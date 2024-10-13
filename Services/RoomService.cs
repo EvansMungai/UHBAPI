@@ -38,14 +38,15 @@ namespace UHB.Services
             }
             return room;
         }
-        //public Room? RemoveRoom(string id)
-        //{
-        //    Room? room = GetRoom(id);
-        //    if (room != null)
-        //    {
-        //        _rooms.Remove(room);
-        //    }
-        //    return room;
-        //}
+        public Room? RemoveRoom(string id)
+        {
+            var room =_context.Rooms.FirstOrDefault(r => r.RoomNo == id);
+            if (room != null)
+            {
+                _context.Remove(room);
+                _context.SaveChanges();
+            }
+            return room;
+        }
     }
 }

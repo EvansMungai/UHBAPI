@@ -46,15 +46,17 @@ namespace UHB.Services
             }
             return student;
         }
-        //public static Student? RemoveStudent(string regNo)
-        //{
-        //    Student? student = GetStudent(regNo);
-        //    if (student != null)
-        //    {
-        //        _students.Remove(student);
-        //    }
-        //    return student;
-        //}
+        public Student? RemoveStudent(string regNo)
+        {
+            regNo = getRegNo(regNo);
+            var student = _context.Students.FirstOrDefault(s => s.RegNo ==  regNo);
+            if (student != null)
+            {
+                _context.Remove(student);
+                _context.SaveChanges();
+            }
+            return student;
+        }
         #region Utilities
         private static string getRegNo(string regNo)
         {

@@ -40,14 +40,15 @@ namespace UHB.Services
             }
             return hostel;
         }
-        //public static Hostel? RemoveHostel(int id)
-        //{
-        //    Hostel? hostel = GetHostel(id);
-        //    if (hostel != null)
-        //    {
-        //        _hostels.Remove(hostel);
-        //    }
-        //    return hostel;
-        //}
+        public Hostel? RemoveHostel(string id)
+        {
+            var hostel = _context.Hostels.FirstOrDefault(h => h.HostelNo == id);
+            if (hostel != null)
+            {
+                _context.Remove(hostel);
+                _context.SaveChanges();
+            }
+            return hostel;
+        }
     }
 }

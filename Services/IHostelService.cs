@@ -8,5 +8,6 @@ namespace UHB.Services
         List<Hostel> GetHostel(string id);
         Hostel CreateHostel(Hostel hostel);
         Hostel? UpdateHostel(Hostel update, string id);
+        Hostel? RemoveHostel(string id);
     }
 }

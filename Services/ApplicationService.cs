@@ -98,14 +98,15 @@ namespace UHB.Services
             }
             return application;
         }
-        //public static Application? RemoveApplication(int id)
-        //{
-        //    Application? application = GetApplication(id);
-        //    if (application != null)
-        //    {
-        //        _applications.Remove(application);
-        //    }
-        //    return application;
-        //}
+        public Application? RemoveApplication(int id)
+        {
+            var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
+            if (application != null)
+            {
+                _context.Remove(application);
+                _context.SaveChanges();
+            }
+            return application;
+        }
     }
 }
