@@ -41,7 +41,7 @@ namespace UHB.Services
                 student.FirstName = update.FirstName;
                 student.SecondName = update.SecondName;
                 student.Gender = update.Gender;
-                _context.Update(update);
+                _context.Update(student);
                 _context.SaveChanges();
             }
             return student;

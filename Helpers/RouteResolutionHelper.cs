@@ -32,7 +32,7 @@ namespace UHB.Helpers
             app.MapGet("/students", () => this._studentService.GetStudents());
             app.MapGet("/student/{id}", (string id) => this._studentService.GetStudent(id));
             app.MapPost("/students", (Student student) => this._studentService.CreateStudent(student));
-            //app.MapPut("/students/{id}", (Student student, string id) => this._studentService.UpdateStudent(student, id));
+            app.MapPut("/students/{id}", (Student student, string id) => this._studentService.UpdateStudent(student, id));
             app.MapDelete("/students/{id}", (string id) => this._studentService.RemoveStudent(id));
 
             //// Room Routes
