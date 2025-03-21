@@ -38,16 +38,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapGet("/", () => "Hello World!");
-
-//using (var serviceScope = app.Services.CreateScope())
-//{
-//    var services = serviceScope.ServiceProvider;
-//    var resolutionHelper = services.GetService<IRouteResolutionHelper>();
-//    resolutionHelper.addMappings(app);
-//}
-
-
 var resolutionHelper = app.Services.CreateScope().ServiceProvider.GetService<IRouteResolutionHelper>();
 resolutionHelper.addMappings(app);
 
