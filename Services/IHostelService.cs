@@ -4,10 +4,10 @@ namespace UHB.Services
 {
     public interface IHostelService
     {
-        List<Hostel> GetHostels();
-        List<Hostel> GetHostel(string id);
-        Hostel CreateHostel(Hostel hostel);
-        Hostel? UpdateHostel(Hostel update, string id);
-        Hostel? RemoveHostel(string id);
+        Task<IResult> GetHostels();
+        Task<IResult> GetHostel(string id);
+        Task<IResult> CreateHostel(Hostel hostel);
+        Task<IResult> UpdateHostel(Hostel update, string id);
+        Task<IResult> RemoveHostel(string id);
     }
 }

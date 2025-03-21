@@ -6,12 +6,12 @@ namespace UHB.Services
 {
     public interface IApplicationService
     {
-        List<Application> GetApplications();
-        List<Application> GetApplication(int id);
-        Application CreateApplication(Application application);
-        Application? UpdateApplicationDetails(Application update, int id);
-        Application? UpdateApplicationStatus(string status, int id);
-        Application? UpdateRoomNo(string roomNo, int id);
-        Application? RemoveApplication(int id);
+        Task<IResult> GetApplications();
+        Task<IResult> GetApplication(int id);
+        Task<IResult> CreateApplication(Application application);
+        Task<IResult> UpdateApplicationDetails(Application update, int id);
+        Task<IResult> UpdateApplicationStatus(string status, int id);
+        Task<IResult> UpdateRoomNo(string roomNo, int id);
+        Task<IResult> RemoveApplication(int id);
     }
 }

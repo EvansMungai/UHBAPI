@@ -10,43 +10,69 @@ namespace UHB.Services
         {
             _context = context;
         }
-        public  List<Room> GetRooms() { return _context.Rooms.ToList(); }
-        public  List<Room> GetRoom(string id)
+        public async Task<IResult> GetRooms()
         {
-            return _context.Rooms.Where(a => a.RoomNo == id).ToList();
+            var rooms = _context.Rooms.Select(r => new { r.RoomNo, r.HostelNo }).ToList();
+            return rooms == null || rooms.Count == 0 ? Results.NotFound("No rooms were found") : Results.Ok(rooms);
         }
-        public Room CreateRoom(Room room)
+        public async Task<IResult> GetRoom(string id)
+        {
+            var room = _context.Rooms.Select(r => new { r.RoomNo, r.HostelNo }).SingleOrDefault(r => r.RoomNo == id);
+            return room == null ? Results.NotFound($"Room with id ={id} was not found") : Results.Ok(room);
+        }
+        public async Task<IResult> CreateRoom(Room room)
         {
             var newRoom = new Room
             {
                 RoomNo = room.RoomNo,
                 HostelNo = room.HostelNo,
             };
-            _context.Rooms.Add(newRoom);
-            _context.SaveChanges();
-            return room;
+            try
+            {
+                _context.Rooms.Add(newRoom);
+                _context.SaveChangesAsync();
+            }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
+            return Results.Ok(newRoom);
         }
-        public Room? UpdateRoom(Room update, string id)
+        public async Task<IResult> UpdateRoom(Room update, string id)
         {
             var room = _context.Rooms.Where(r => r.RoomNo == id).Single();
             if (room != null)
             {
                 room.RoomNo = update.RoomNo;
                 room.HostelNo = update.HostelNo;
-                _context.Update(room);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Rooms.Update(room);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(room);
+                }
+                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
             }
-            return room;
+            else
+            {
+                return Results.NotFound($"Room with id ={id} was not found");
+            }
         }
-        public Room? RemoveRoom(string id)
+        public async Task<IResult> RemoveRoom(string id)
         {
-            var room =_context.Rooms.FirstOrDefault(r => r.RoomNo == id);
+            var room = _context.Rooms.FirstOrDefault(r => r.RoomNo == id);
             if (room != null)
             {
-                _context.Remove(room);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Remove(room);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(room);
+                }
+                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
+
             }
-            return room;
+            else
+            {
+                return Results.NotFound($"Room with id = {id} was not found");
+            }
         }
     }
 }

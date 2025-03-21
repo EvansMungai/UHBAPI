@@ -4,10 +4,10 @@ namespace UHB.Services
 {
     public interface IRoomService
     {
-        List<Room> GetRooms();
-        List<Room> GetRoom(string id);
-        Room CreateRoom(Room room);
-        Room? UpdateRoom(Room update, string id);
-        Room? RemoveRoom(string id);
+        Task<IResult> GetRooms();
+        Task<IResult> GetRoom(string id);
+        Task<IResult> CreateRoom(Room room);
+        Task<IResult> UpdateRoom(Room update, string id);
+        Task<IResult> RemoveRoom(string id);
     }
 }

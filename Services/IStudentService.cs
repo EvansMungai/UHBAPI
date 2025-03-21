@@ -4,10 +4,10 @@ namespace UHB.Services
 {
     public interface IStudentService
     {
-        List<Student> GetStudents();
-        List<Student> GetStudent(string regNo);
-        Student CreateStudent(Student student);
-        Student? UpdateStudent(Student update, string regNo);
-        Student? RemoveStudent(string regNo);
+        Task<IResult> GetStudents();
+        Task<IResult> GetStudent(string regNo);
+        Task<IResult> CreateStudent(Student student);
+        Task<IResult> UpdateStudent(Student update, string regNo);
+        Task<IResult> RemoveStudent(string regNo);
     }
 }

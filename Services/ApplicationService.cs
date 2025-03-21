@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using UHB.Data;
+﻿using UHB.Data;
 using UHB.Models;
 
 namespace UHB.Services
@@ -12,17 +10,18 @@ namespace UHB.Services
         {
             _context = context;
         }
-        public List<Application> GetApplications()
+        public async Task<IResult> GetApplications()
         {
             var applications = _context.Applications.ToList();
-            return applications;
+            return applications == null || applications.Count == 0 ? Results.NotFound("No applications were found") : Results.Ok(applications);
         }
 
-        public List<Application> GetApplication(int id)
+        public async Task<IResult> GetApplication(int id)
         {
-            return _context.Applications.Where(a => a.ApplicationNo == id).ToList();
+            var application = _context.Applications.SingleOrDefault(a => a.ApplicationNo == id);
+            return application == null ? Results.NotFound($"Application with application id ={id} was not found") : Results.Ok(application);
         }
-        public Application CreateApplication(Application application)
+        public async Task<IResult> CreateApplication(Application application)
         {
             var newApplication = new Application
             {
@@ -45,11 +44,15 @@ namespace UHB.Services
                 SpecialExamPeriod = application.SpecialExamPeriod,
                 ReasonsForConsideration = application.ReasonsForConsideration
             };
-            _context.Applications.Add(newApplication);
-            _context.SaveChangesAsync();
-            return application;
+            try
+            {
+                _context.Applications.Add(newApplication);
+                _context.SaveChangesAsync();
+                return Results.Ok(application);
+            }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException.Message); }
         }
-        public Application? UpdateApplicationDetails(Application update, int id)
+        public async Task<IResult> UpdateApplicationDetails(Application update, int id)
         {
             var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
             if (application != null)
@@ -71,42 +74,74 @@ namespace UHB.Services
                 application.SpecialExamsOnFinancialGrounds = update.SpecialExamsOnFinancialGrounds;
                 application.SpecialExamPeriod = update.SpecialExamPeriod;
                 application.ReasonsForConsideration = update.ReasonsForConsideration;
-                _context.Update(application);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Applications.Update(application);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(application);
+                }
+                catch (Exception ex) { return Results.BadRequest(ex.InnerException.Message); }
             }
-            return application;
+            else
+            {
+                return Results.NotFound($"Application with application id ={id} was not found");
+            }
+
         }
-        public Application? UpdateApplicationStatus(string status, int id)
+        public async Task<IResult> UpdateApplicationStatus(string status, int id)
         {
             var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
             if (application != null)
             {
-                application.Status = status;
-                _context.Update(application);
-                _context.SaveChanges();
+                try
+                {
+                    application.Status = status;
+                    _context.Applications.Update(application);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(application);
+                }
+                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
             }
-            return application;
+            else
+            {
+                return Results.NotFound($"Application with application id={id} was not found");
+            }
+
         }
-        public Application? UpdateRoomNo(string roomNo, int id)
+        public async Task<IResult> UpdateRoomNo(string roomNo, int id)
         {
             var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
             if (application != null)
             {
-                application.RoomNo = roomNo;
-                _context.Update(application);
-                _context.SaveChanges();
+                try
+                {
+                    application.RoomNo = roomNo;
+                    _context.Applications.Update(application);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(application);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ex.InnerException?.Message);
+
+                }
             }
-            return application;
+            else { return Results.NotFound($"Application with id={id} was not found"); }
         }
-        public Application? RemoveApplication(int id)
+        public async Task<IResult> RemoveApplication(int id)
         {
             var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
             if (application != null)
             {
-                _context.Remove(application);
-                _context.SaveChanges();
+                try
+                {
+                    _context.Applications.Remove(application);
+                    _context.SaveChangesAsync();
+                    return Results.Ok(application);
+                }
+                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
             }
-            return application;
+            else { return Results.NotFound($"Application with application id={id} was not found"); }
         }
     }
 }
