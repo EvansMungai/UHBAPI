@@ -21,6 +21,16 @@ namespace UHB.Services
             var application = _context.Applications.SingleOrDefault(a => a.ApplicationNo == id);
             return application == null ? Results.NotFound($"Application with application id ={id} was not found") : Results.Ok(application);
         }
+        public async Task<IResult> GetAcceptedApplications()
+        {
+            var applications = _context.Applications.Where(a => a.Status == "Accepted").ToList();
+            return applications == null || !applications.Any() ? Results.NotFound("No Accepted applications were found.") : Results.Ok(applications);
+        }
+        public async Task<IResult> GetRejectedApplications()
+        {
+            var applications = _context.Applications.Where(a => a.Status == "Rejected").ToList();
+            return applications == null || !applications.Any() ? Results.NotFound("No Accepted applications were found.") : Results.Ok(applications);
+        }
         public async Task<IResult> CreateApplication(Application application)
         {
             var newApplication = new Application

@@ -45,6 +45,8 @@ namespace UHB.Helpers
 
             //// Applications routes
             app.MapGet("/applications", () => this._applicationService.GetApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
+            app.MapGet("/accepted-applications", () => this._applicationService.GetAcceptedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
+            app.MapGet("/rejected-applications", () => this._applicationService.GetRejectedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
             app.MapGet("/application/{id}", (int id) => this._applicationService.GetApplication(id)).WithTags("Applications").Produces(200).Produces(404).Produces<Application>();
             app.MapPost("/application", (Application application) => this._applicationService.CreateApplication(application)).WithTags("Applications").Produces(200).Produces(404).Produces<Application>();
             app.MapPut("/application/{id}", (Application application, int id) => this._applicationService.UpdateApplicationDetails(application, id)).WithTags("Applications").Produces(200).Produces(404).Produces<Application>();

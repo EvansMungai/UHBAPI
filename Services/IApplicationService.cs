@@ -8,6 +8,8 @@ namespace UHB.Services
     {
         Task<IResult> GetApplications();
         Task<IResult> GetApplication(int id);
+        Task<IResult> GetAcceptedApplications();
+        Task<IResult> GetRejectedApplications();
         Task<IResult> CreateApplication(Application application);
         Task<IResult> UpdateApplicationDetails(Application update, int id);
         Task<IResult> UpdateApplicationStatus(string status, int id);
