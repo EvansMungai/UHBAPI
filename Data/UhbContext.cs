@@ -8,13 +8,15 @@ namespace UHB.Data;
 
 public partial class UhbContext : DbContext
 {
+    private readonly string _connectionString;
     public UhbContext()
     {
     }
 
-    public UhbContext(DbContextOptions<UhbContext> options)
+    public UhbContext(DbContextOptions<UhbContext> options,IConfiguration configuration)
         : base(options)
     {
+        _connectionString = configuration.GetConnectionString("UHB");
     }
 
     public virtual DbSet<Application> Applications { get; set; }
@@ -28,7 +30,12 @@ public partial class UhbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("name=ConnectionStrings:UHB", ServerVersion.Parse("8.2.0-mysql"));
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseMySql(_connectionString, ServerVersion.AutoDetect(_connectionString));
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

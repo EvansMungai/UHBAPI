@@ -20,14 +20,22 @@ builder.Services.AddSwaggerGen(c =>
 var connectionString = builder.Configuration.GetConnectionString("UHB");
 
 builder.Services.AddDbContext<UhbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-builder.Services.AddTransient<IRoomService, RoomService>();
-builder.Services.AddTransient<IHostelService, HostelService>();
-builder.Services.AddTransient<IStudentService, StudentService>();
-builder.Services.AddTransient<IApplicationService, ApplicationService>();
-builder.Services.AddTransient<IRouteResolutionHelper, RouteResolutionHelper>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IHostelService, HostelService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
+builder.Services.AddScoped<IRouteResolutionHelper, RouteResolutionHelper>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
-
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
