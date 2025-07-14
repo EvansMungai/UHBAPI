@@ -1,4 +1,4 @@
-﻿using UHB.Models;
+﻿using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Services
 {

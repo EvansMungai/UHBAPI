@@ -1,5 +1,5 @@
-﻿using UHB.Data;
-using UHB.Models;
+﻿using UHB.Data.Infrastructure;
+using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Services;
 

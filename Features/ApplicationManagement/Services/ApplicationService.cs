@@ -1,7 +1,7 @@
-﻿using UHB.Data;
-using UHB.Models;
+﻿using UHB.Data.Infrastructure;
+using UHB.Features.ApplicationManagement.Models;
 
-namespace UHB.Services
+namespace UHB.Features.ApplicationManagement.Services
 {
     public class ApplicationService : IApplicationService
     {

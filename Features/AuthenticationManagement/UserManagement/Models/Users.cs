@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using UHB.Features.StudentManagement.Models;
 
-namespace UHB.Models;
+namespace UHB.Features.AuthenticationManagement.UserManagement.Models;
 
 public partial class User
 {

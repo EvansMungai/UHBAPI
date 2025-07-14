@@ -1,7 +1,7 @@
-﻿using UHB.Data;
-using UHB.Models;
+﻿using UHB.Data.Infrastructure;
+using UHB.Features.HostelManagement.Room.Models;
 
-namespace UHB.Services
+namespace UHB.Features.HostelManagement.Room.Services
 {
     public class RoomService : IRoomService
     {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using UHB.Features.ApplicationManagement.Models;
+using UHB.Features.HostelManagement.Hostel.Models;
 
-namespace UHB.Models;
+namespace UHB.Features.HostelManagement.Room.Models;
 
 public partial class Room
 {

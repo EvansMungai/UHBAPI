@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using UHB.Models;
+using UHB.Features.ApplicationManagement.Models;
+using UHB.Features.AuthenticationManagement.UserManagement.Models;
+using UHB.Features.HostelManagement.Hostel.Models;
+using UHB.Features.HostelManagement.Room.Models;
+using UHB.Features.StudentManagement.Models;
 
-namespace UHB.Data;
+namespace UHB.Data.Infrastructure;
 
 public partial class UhbContext : DbContext
 {

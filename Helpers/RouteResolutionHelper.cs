@@ -1,5 +1,11 @@
 ﻿using UHB.Data;
-using UHB.Models;
+using UHB.Features.ApplicationManagement.Models;
+using UHB.Features.ApplicationManagement.Services;
+using UHB.Features.HostelManagement.Hostel.Models;
+using UHB.Features.HostelManagement.Hostel.Services;
+using UHB.Features.HostelManagement.Room.Models;
+using UHB.Features.HostelManagement.Room.Services;
+using UHB.Features.StudentManagement.Models;
 using UHB.Services;
 
 

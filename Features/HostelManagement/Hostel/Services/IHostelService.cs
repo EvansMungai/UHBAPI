@@ -1,6 +1,6 @@
-﻿using UHB.Models;
+﻿using UHB.Features.HostelManagement.Hostel.Models;
 
-namespace UHB.Services
+namespace UHB.Features.HostelManagement.Hostel.Services
 {
     public interface IHostelService
     {
