@@ -1,12 +1,9 @@
-﻿using UHB.Data;
-using UHB.Features.ApplicationManagement.Models;
+﻿using UHB.Features.ApplicationManagement.Models;
 using UHB.Features.ApplicationManagement.Services;
-using UHB.Features.HostelManagement.Hostel.Models;
-using UHB.Features.HostelManagement.Hostel.Services;
-using UHB.Features.HostelManagement.Room.Models;
-using UHB.Features.HostelManagement.Room.Services;
+using UHB.Features.HostelManagement.Models;
+using UHB.Features.HostelManagement.Services;
 using UHB.Features.StudentManagement.Models;
-using UHB.Services;
+using UHB.Features.StudentManagement.Services;
 
 
 namespace UHB.Helpers

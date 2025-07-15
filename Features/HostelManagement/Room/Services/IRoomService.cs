@@ -1,13 +1,13 @@
-﻿using UHB.Features.HostelManagement.Room.Models;
+﻿using UHB.Features.HostelManagement.Models;
 
-namespace UHB.Features.HostelManagement.Room.Services
+namespace UHB.Features.HostelManagement.Services;
+
+public interface IRoomService
 {
-    public interface IRoomService
-    {
-        Task<IResult> GetRooms();
-        Task<IResult> GetRoom(string id);
-        Task<IResult> CreateRoom(Room room);
-        Task<IResult> UpdateRoom(Room update, string id);
-        Task<IResult> RemoveRoom(string id);
-    }
+    Task<IResult> GetRooms();
+    Task<IResult> GetRoom(string id);
+    Task<IResult> CreateRoom(Room room);
+    Task<IResult> UpdateRoom(Room update, string id);
+    Task<IResult> RemoveRoom(string id);
 }
+

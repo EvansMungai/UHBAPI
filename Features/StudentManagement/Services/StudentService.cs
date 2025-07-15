@@ -1,7 +1,7 @@
 ﻿using UHB.Data.Infrastructure;
 using UHB.Features.StudentManagement.Models;
 
-namespace UHB.Services;
+namespace UHB.Features.StudentManagement.Services;
 
 public class StudentService : IStudentService
 {

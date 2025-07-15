@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+﻿using Microsoft.EntityFrameworkCore;
 using UHB.Features.ApplicationManagement.Models;
 using UHB.Features.AuthenticationManagement.UserManagement.Models;
-using UHB.Features.HostelManagement.Hostel.Models;
-using UHB.Features.HostelManagement.Room.Models;
+using UHB.Features.HostelManagement.Models;
 using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Data.Infrastructure;

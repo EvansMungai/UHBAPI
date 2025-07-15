@@ -11,5 +11,8 @@ public static class ServiceRegistration
 
         // Configure DBContext
         serviceCollection.RegisterDataServices(configuration);
+
+        // Configure  Cors
+        serviceCollection.ConfigureCors();
     }
 }

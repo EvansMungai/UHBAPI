@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UHB.Features.HostelManagement.Room.Models;
+﻿using UHB.Features.HostelManagement.Models;
 using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Features.ApplicationManagement.Models;

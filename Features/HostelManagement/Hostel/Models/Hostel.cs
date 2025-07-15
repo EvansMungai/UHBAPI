@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace UHB.Features.HostelManagement.Hostel.Models;
+﻿namespace UHB.Features.HostelManagement.Models;
 
 public partial class Hostel
 {
