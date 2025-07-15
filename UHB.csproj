@@ -27,8 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\RouteHandlers\" />
-    <Folder Include="Features\ApplicationManagement\Endpoints\" />
     <Folder Include="Features\AuthenticationManagement\Authentication\Endpoints\" />
     <Folder Include="Features\AuthenticationManagement\Authentication\Models\" />
     <Folder Include="Features\AuthenticationManagement\Authentication\Services\" />
@@ -37,9 +35,6 @@
     <Folder Include="Features\BookingManagement\Endpoints\" />
     <Folder Include="Features\BookingManagement\Models\" />
     <Folder Include="Features\BookingManagement\Services\" />
-    <Folder Include="Features\HostelManagement\Hostel\Endpoints\" />
-    <Folder Include="Features\HostelManagement\Room\Endpoints\" />
-    <Folder Include="Features\StudentManagement\Endpoints\" />
   </ItemGroup>
 
 </Project>

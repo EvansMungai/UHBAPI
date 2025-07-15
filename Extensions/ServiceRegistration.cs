@@ -1,4 +1,5 @@
 ﻿using UHB.Data;
+using UHB.Extensions.RouteHandlers;
 
 namespace UHB.Extensions;
 
@@ -14,5 +15,17 @@ public static class ServiceRegistration
 
         // Configure  Cors
         serviceCollection.ConfigureCors();
+
+        // Configure Application Services
+        serviceCollection.RegisterFeatureServices();
+
+        // configure Route Handlers
+        serviceCollection.RegisterHandlers();
+
+        // Configure Route registrar
+        serviceCollection.RegisterRouteRegistrars();
+
+        // Configure Route Builder
+        serviceCollection.AddScoped<RouteHelper>();
     }
 }
