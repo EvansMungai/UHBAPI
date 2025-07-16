@@ -32,9 +32,6 @@
     <Folder Include="Features\AuthenticationManagement\Authentication\Services\" />
     <Folder Include="Features\AuthenticationManagement\UserManagement\Endpoints\" />
     <Folder Include="Features\AuthenticationManagement\UserManagement\Services\" />
-    <Folder Include="Features\BookingManagement\Endpoints\" />
-    <Folder Include="Features\BookingManagement\Models\" />
-    <Folder Include="Features\BookingManagement\Services\" />
   </ItemGroup>
 
 </Project>
