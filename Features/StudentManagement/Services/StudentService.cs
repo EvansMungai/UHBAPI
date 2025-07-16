@@ -1,27 +1,30 @@
-﻿using UHB.Data.Infrastructure;
-using UHB.Features.StudentManagement.Models;
+﻿using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Features.StudentManagement.Services;
 
 public class StudentService : IStudentService
 {
-    private readonly UhbContext _context;
-    public StudentService(UhbContext context)
+    private readonly IStudentRepository _repo;
+    public StudentService(IStudentRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
     public async Task<IResult> GetStudents()
     {
-        var students = _context.Students.Select(s => new { s.RegNo, s.Surname, s.FirstName, s.SecondName, s.Gender }).ToList();
+        var students = await _repo.GetAllStudentsAsync();
         return students == null || students.Count == 0 ? Results.NotFound("No Categories found") : Results.Ok(students);
     }
     public async Task<IResult> GetStudent(string regNo)
     {
-        var student = _context.Students.Select(s => new { s.RegNo, s.Surname, s.FirstName, s.SecondName, s.Gender }).SingleOrDefault(s => s.RegNo == regNo);
+        var student = await _repo.GetStudentByIdAsync(regNo);
         return student == null ? Results.NotFound($"NO student with registration number = {regNo} was found") : Results.Ok(student);
     }
     public async Task<IResult> CreateStudent(Student student)
     {
+        var existingStudent = await _repo.GetStudentByIdAsync(student.RegNo);
+        if (existingStudent != null)
+            return Results.BadRequest($"Student with Registration Number = {student.RegNo} exists");
+
         var newStudent = new Student
         {
             RegNo = student.RegNo,
@@ -32,62 +35,40 @@ public class StudentService : IStudentService
         };
         try
         {
-            _context.Students.Add(newStudent);
-            _context.SaveChangesAsync();
+            await _repo.CreateStudentAsync(newStudent);
+            return Results.Ok(newStudent);
         }
-        catch (Exception ex)
-        {
-            return Results.BadRequest(ex.InnerException?.Message);
-        }
-        return Results.Ok(newStudent);
+        catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
 
     }
     public async Task<IResult> UpdateStudent(Student update, string regNo)
     {
         regNo = getRegNo(regNo);
-        var student = _context.Students.FirstOrDefault(s => s.RegNo == regNo);
-        if (student != null)
-        {
-            //student.RegNo = update.RegNo;
-            student.Surname = update.Surname;
-            student.FirstName = update.FirstName;
-            student.SecondName = update.SecondName;
-            student.Gender = update.Gender;
-            try
-            {
-                _context.Students.Update(student);
-                _context.SaveChangesAsync();
-                return Results.Ok(student);
-            }
-            catch (Exception ex)
-            {
-                return Results.BadRequest(ex.InnerException?.Message);
-            }
-        }
-        else
-        {
+        var student = await _repo.GetStudentByIdAsync(regNo);
+        if (student == null)
             return Results.NotFound($"Student with registration number ={regNo} was not found");
+
+        try
+        {
+            await _repo.UpdateStudentDetailsAsync(update, regNo);
+            return Results.Ok(update);
         }
+        catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
     }
     public async Task<IResult> RemoveStudent(string regNo)
     {
         regNo = getRegNo(regNo);
-        var student = _context.Students.FirstOrDefault(s => s.RegNo == regNo);
-        if (student != null)
-        {
-            try
-            {
-                _context.Students.Remove(student);
-                _context.SaveChangesAsync();
-            }
-            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
-
-            return Results.Ok(student);
-        }
-        else
-        {
+        var student = await _repo.GetStudentByIdAsync(regNo);
+        if (student == null)
             return Results.NotFound($"Student with registration no={regNo} was not found");
+
+        try
+        {
+            await _repo.RemoveStudentAsync(regNo);
         }
+        catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
+
+        return Results.Ok(student);
     }
     #region Utilities
     private static string getRegNo(string regNo)
