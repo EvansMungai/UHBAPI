@@ -6,6 +6,7 @@ public static class ServiceRegistration
     {
         services.AddScoped<IHostelRepository, HostelRepository>();
         services.AddScoped<IHostelService, HostelService>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IRoomService, RoomService>();
     }
 }
