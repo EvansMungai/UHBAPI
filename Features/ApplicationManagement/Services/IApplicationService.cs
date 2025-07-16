@@ -1,5 +1,4 @@
-﻿using UHB.Data;
-using UHB.Features.ApplicationManagement.Models;
+﻿using UHB.Features.ApplicationManagement.Models;
 
 namespace UHB.Features.ApplicationManagement.Services
 {

@@ -1,34 +1,33 @@
-﻿using UHB.Data.Infrastructure;
-using UHB.Features.ApplicationManagement.Models;
+﻿using UHB.Features.ApplicationManagement.Models;
 
 namespace UHB.Features.ApplicationManagement.Services
 {
     public class ApplicationService : IApplicationService
     {
-        private readonly UhbContext _context;
-        public ApplicationService(UhbContext context)
+        private readonly IApplicationRepository _repo;
+        public ApplicationService(IApplicationRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
         public async Task<IResult> GetApplications()
         {
-            var applications = _context.Applications.ToList();
+            var applications = await _repo.GetAllApplicationsAsync();
             return applications == null || applications.Count == 0 ? Results.NotFound("No applications were found") : Results.Ok(applications);
         }
 
         public async Task<IResult> GetApplication(int id)
         {
-            var application = _context.Applications.SingleOrDefault(a => a.ApplicationNo == id);
+            var application = await _repo.GetApplicationByIdAsync(id);
             return application == null ? Results.NotFound($"Application with application id ={id} was not found") : Results.Ok(application);
         }
         public async Task<IResult> GetAcceptedApplications()
         {
-            var applications = _context.Applications.Where(a => a.Status == "Accepted").ToList();
+            var applications = await _repo.GetAcceptedApplicationsAsync();
             return applications == null || !applications.Any() ? Results.NotFound("No Accepted applications were found.") : Results.Ok(applications);
         }
         public async Task<IResult> GetRejectedApplications()
         {
-            var applications = _context.Applications.Where(a => a.Status == "Rejected").ToList();
+            var applications = await _repo.GetRejectedApplicationsAsync();
             return applications == null || !applications.Any() ? Results.NotFound("No Accepted applications were found.") : Results.Ok(applications);
         }
         public async Task<IResult> CreateApplication(Application application)
@@ -56,102 +55,64 @@ namespace UHB.Features.ApplicationManagement.Services
             };
             try
             {
-                _context.Applications.Add(newApplication);
-                _context.SaveChangesAsync();
+                await _repo.CreateApplicationAsync(newApplication);
                 return Results.Ok(application);
             }
-            catch (Exception ex) { return Results.BadRequest(ex.InnerException.Message); }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
         }
         public async Task<IResult> UpdateApplicationDetails(Application update, int id)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
-            if (application != null)
-            {
-                application.RegistrationNo = update.RegistrationNo;
-                application.PreferredHostel = update.PreferredHostel;
-                application.Disability = update.Disability;
-                application.DisabilityDetails = update.DisabilityDetails;
-                application.AccommodatedBefore = update.AccommodatedBefore;
-                application.AccommodationPeriod = update.AccommodationPeriod;
-                application.IsSponsored = update.IsSponsored;
-                application.Sponsor = update.Sponsor;
-                application.ReceivesHelb = update.ReceivesHelb;
-                application.HelbAmount = update.HelbAmount;
-                application.ReceivedBursary = update.ReceivedBursary;
-                application.BursaryAmount = update.BursaryAmount;
-                application.WorkStudyBenefitsBefore = update.WorkStudyBenefitsBefore;
-                application.WorkStudyPeriod = update.WorkStudyPeriod;
-                application.SpecialExamsOnFinancialGrounds = update.SpecialExamsOnFinancialGrounds;
-                application.SpecialExamPeriod = update.SpecialExamPeriod;
-                application.ReasonsForConsideration = update.ReasonsForConsideration;
-                try
-                {
-                    _context.Applications.Update(application);
-                    _context.SaveChangesAsync();
-                    return Results.Ok(application);
-                }
-                catch (Exception ex) { return Results.BadRequest(ex.InnerException.Message); }
-            }
-            else
-            {
+            var application = await _repo.GetApplicationByIdAsync(id);
+            if (application == null)
                 return Results.NotFound($"Application with application id ={id} was not found");
-            }
 
+            try
+            {
+                await _repo.UpdateApplicationDetailsAsync(update, id);
+                return Results.Ok(application);
+            }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
         }
         public async Task<IResult> UpdateApplicationStatus(string status, int id)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
-            if (application != null)
-            {
-                try
-                {
-                    application.Status = status;
-                    _context.Applications.Update(application);
-                    _context.SaveChangesAsync();
-                    return Results.Ok(application);
-                }
-                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
-            }
-            else
-            {
+            var application = await _repo.GetApplicationByIdAsync(id);
+            if (application == null)
                 return Results.NotFound($"Application with application id={id} was not found");
-            }
 
+            try
+            {
+                await _repo.UpdateApplicationStatusAsync(status, id);
+                return Results.Ok(application);
+            }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
         }
         public async Task<IResult> UpdateRoomNo(string roomNo, int id)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
-            if (application != null)
-            {
-                try
-                {
-                    application.RoomNo = roomNo;
-                    _context.Applications.Update(application);
-                    _context.SaveChangesAsync();
-                    return Results.Ok(application);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(ex.InnerException?.Message);
+            var application = await _repo.GetApplicationByIdAsync(id);
+            if (application == null)
+                return Results.NotFound($"Application with id={id} was not found");
 
-                }
+
+            try
+            {
+                await _repo.AssignRoomToApplicant(roomNo, id);
+                return Results.Ok(application);
             }
-            else { return Results.NotFound($"Application with id={id} was not found"); }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
         }
         public async Task<IResult> RemoveApplication(int id)
         {
-            var application = _context.Applications.FirstOrDefault(a => a.ApplicationNo == id);
-            if (application != null)
+            var application = await _repo.GetApplicationByIdAsync(id);
+            if (application == null)
+                return Results.NotFound($"Application with application id={id} was not found");
+
+            try
             {
-                try
-                {
-                    _context.Applications.Remove(application);
-                    _context.SaveChangesAsync();
-                    return Results.Ok(application);
-                }
-                catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message); }
+                await _repo.RemoveApplicationAsync(id);
+                return Results.Ok(application);
             }
-            else { return Results.NotFound($"Application with application id={id} was not found"); }
+            catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
+
         }
     }
 }
