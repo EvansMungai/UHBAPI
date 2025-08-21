@@ -16,7 +16,8 @@ public partial class UhbContext : DbContext
     public UhbContext(DbContextOptions<UhbContext> options,IConfiguration configuration)
         : base(options)
     {
-        _connectionString = configuration.GetConnectionString("UHB");
+        //_connectionString = configuration.GetConnectionString("UHB");
+        _connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__UHBRemote");
     }
 
     public virtual DbSet<Application> Applications { get; set; }
