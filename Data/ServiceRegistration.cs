@@ -7,7 +7,11 @@ public static class ServiceRegistration
 {
     public static void RegisterDataServices(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("UHB");
-        serviceCollection.AddDbContext<UhbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__UHBRemote");
+        serviceCollection.AddDbContext<UhbContext>(
+            options =>
+            {
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            }, ServiceLifetime.Scoped);
     }
 }
