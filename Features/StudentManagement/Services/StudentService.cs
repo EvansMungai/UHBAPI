@@ -16,6 +16,7 @@ public class StudentService : IStudentService
     }
     public async Task<IResult> GetStudent(string regNo)
     {
+        regNo = getRegNo(regNo);
         var student = await _repo.GetStudentByIdAsync(regNo);
         return student == null ? Results.NotFound($"NO student with registration number = {regNo} was found") : Results.Ok(student);
     }
