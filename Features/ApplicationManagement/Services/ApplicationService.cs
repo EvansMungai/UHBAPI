@@ -73,7 +73,7 @@ namespace UHB.Features.ApplicationManagement.Services
             }
             catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }
         }
-        public async Task<IResult> UpdateApplicationStatus(string status, int id)
+        public async Task<IResult> UpdateApplicationStatus(string status, string preferredHostel, int id)
         {
             var application = await _repo.GetApplicationByIdAsync(id);
             if (application == null)
@@ -81,7 +81,7 @@ namespace UHB.Features.ApplicationManagement.Services
 
             try
             {
-                await _repo.UpdateApplicationStatusAsync(status, id);
+                await _repo.UpdateApplicationStatusAsync(status, preferredHostel, id);
                 return Results.Ok(application);
             }
             catch (Exception ex) { return Results.BadRequest(ex.InnerException?.Message ?? ex.Message); }

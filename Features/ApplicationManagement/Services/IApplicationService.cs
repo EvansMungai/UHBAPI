@@ -10,7 +10,7 @@ namespace UHB.Features.ApplicationManagement.Services
         Task<IResult> GetRejectedApplications();
         Task<IResult> CreateApplication(Application application);
         Task<IResult> UpdateApplicationDetails(Application update, int id);
-        Task<IResult> UpdateApplicationStatus(string status, int id);
+        Task<IResult> UpdateApplicationStatus(string status, string preferredHostel, int id);
         Task<IResult> UpdateRoomNo(string roomNo, int id);
         Task<IResult> RemoveApplication(int id);
     }

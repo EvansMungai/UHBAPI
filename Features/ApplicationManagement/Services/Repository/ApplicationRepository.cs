@@ -49,7 +49,7 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task RemoveApplicationAsync(int id)
     {
-        var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationNo == id); 
+        var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationNo == id);
         if (application == null) return;
 
         _context.Applications.Remove(application);
@@ -83,12 +83,13 @@ public class ApplicationRepository : IApplicationRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateApplicationStatusAsync(string status, int id)
+    public async Task UpdateApplicationStatusAsync(string status, string preferredHostel, int id)
     {
         var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationNo == id);
         if (application == null) return;
 
         application.Status = status;
+        application.PreferredHostel = preferredHostel;
         _context.Applications.Update(application);
         await _context.SaveChangesAsync();
     }
