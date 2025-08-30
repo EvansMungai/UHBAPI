@@ -25,6 +25,11 @@ namespace UHB.Features.ApplicationManagement.Services
             var applications = await _repo.GetAcceptedApplicationsAsync();
             return applications == null || !applications.Any() ? Results.NotFound("No Accepted applications were found.") : Results.Ok(applications);
         }
+        public async Task<IResult> GetAssignedApplications()
+        {
+            var applications = await _repo.GetAssignedApplicationsAsync();
+            return applications == null || !applications.Any() ? Results.NotFound("No assigned applications were found.") : Results.Ok(applications);
+        }
         public async Task<IResult> GetRejectedApplications()
         {
             var applications = await _repo.GetRejectedApplicationsAsync();

@@ -7,6 +7,7 @@ public interface IApplicationRepository
     Task<List<Application>> GetAllApplicationsAsync();
     Task<Application?> GetApplicationByIdAsync(int id);
     Task<List<Application>> GetAcceptedApplicationsAsync();
+    Task<List<Application>> GetAssignedApplicationsAsync();
     Task<List<Application>> GetRejectedApplicationsAsync();
     Task CreateApplicationAsync(Application application);
     Task UpdateApplicationDetailsAsync(Application update, int id);

@@ -15,6 +15,7 @@ public class ApplicationRoutes : IRouteRegistrar
         var app = application.MapGroup("").WithTags("Application");
         app.MapGet("/applications", (ApplicationHandler handler) => handler.GetApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
         app.MapGet("/accepted-applications", (ApplicationHandler handler) => handler.GetAcceptedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
+        app.MapGet("/assigned-applications", (ApplicationHandler handler) => handler.GetAssignedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
         app.MapGet("/rejected-applications", (ApplicationHandler handler) => handler.GetRejectedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<Application>>();
         app.MapGet("/application/{id}", (ApplicationHandler handler, int id) => handler.GetApplicationById(id)).WithTags("Applications").Produces(200).Produces(404).Produces<Application>();
         app.MapPost("/application", (ApplicationHandler handler, Application application) => handler.CreateApplication(application)).WithTags("Applications").Produces(200).Produces(404).Produces<Application>();

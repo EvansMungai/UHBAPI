@@ -36,6 +36,10 @@ public class ApplicationRepository : IApplicationRepository
     {
         return await _context.Applications.ToListAsync();
     }
+    public async Task<List<Application>> GetAssignedApplicationsAsync()
+    {
+        return await _context.Applications.Where(a => a.RoomNo != null).ToListAsync();
+    }
 
     public async Task<Application?> GetApplicationByIdAsync(int id)
     {
