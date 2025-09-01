@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using UHB.Features.StudentManagement.Models;
+﻿using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Features.AuthenticationManagement.UserManagement.Models;
 
-public partial class User
+public partial class User 
 {
     public string Username { get; set; } = null!;
 
