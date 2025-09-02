@@ -50,7 +50,7 @@ public class UserManagementService : IUserManagementService
                         UserName = user.UserName,
                         Role = role.Name,
                     };
-        var result = query.ToListAsync();
+        var result = query.ToList();
         return Results.Ok(result);
     }
     public async Task<IResult> GetSpecialUsers()
