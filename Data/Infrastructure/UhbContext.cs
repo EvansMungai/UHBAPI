@@ -1,19 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UHB.Features.ApplicationManagement.Models;
-using UHB.Features.AuthenticationManagement.UserManagement.Models;
+using UHB.Features.AuthenticationManagement.Models;
 using UHB.Features.HostelManagement.Models;
 using UHB.Features.StudentManagement.Models;
 
 namespace UHB.Data.Infrastructure;
 
-public partial class UhbContext : DbContext
+public partial class UhbContext : IdentityDbContext<User>
 {
     private readonly string _connectionString;
     public UhbContext()
     {
     }
 
-    public UhbContext(DbContextOptions<UhbContext> options,IConfiguration configuration)
+    public UhbContext(DbContextOptions<UhbContext> options, IConfiguration configuration)
         : base(options)
     {
         //_connectionString = configuration.GetConnectionString("UHB");
@@ -43,6 +45,10 @@ public partial class UhbContext : DbContext
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(iul => new { iul.LoginProvider, iul.ProviderKey });
+        modelBuilder.Entity<IdentityUserRole<string>>().HasKey(iur => new { iur.UserId, iur.RoleId });
+        modelBuilder.Entity<IdentityUserToken<string>>().HasKey(iut => new { iut.UserId, iut.LoginProvider, iut.Name });
 
         modelBuilder.Entity<Application>(entity =>
         {
@@ -129,27 +135,14 @@ public partial class UhbContext : DbContext
             entity.Property(e => e.Surname).HasMaxLength(30);
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Username).HasName("PRIMARY");
+        modelBuilder.Entity<User>()
+            .Property(u => u.RegNo).HasColumnType("varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
-            entity.ToTable("users");
-
-            entity.HasIndex(e => e.RegNo, "RegNO");
-
-            entity.Property(e => e.Username).HasMaxLength(30);
-            entity.Property(e => e.Password).HasMaxLength(200);
-            entity.Property(e => e.RegNo)
-                .HasMaxLength(30)
-                .HasColumnName("RegNO");
-            entity.Property(e => e.Role)
-                .HasMaxLength(30)
-                .HasDefaultValueSql("'Student'");
-
-            entity.HasOne(d => d.RegNoNavigation).WithMany(p => p.Users)
-                .HasForeignKey(d => d.RegNo)
-                .HasConstraintName("users_ibfk_1");
-        });
+        modelBuilder.Entity<User>()
+                    .HasOne(u => u.RegNoNavigation)
+                    .WithMany(s => s.Users)
+                    .HasForeignKey(u => u.RegNo)
+                    .HasPrincipalKey(s => s.RegNo);
 
         OnModelCreatingPartial(modelBuilder);
     }

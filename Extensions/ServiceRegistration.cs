@@ -1,5 +1,6 @@
 ﻿using UHB.Data;
 using UHB.Extensions.RouteHandlers;
+using UHB.Extensions.ServiceHandlers;
 
 namespace UHB.Extensions;
 
@@ -12,6 +13,9 @@ public static class ServiceRegistration
 
         // Configure DBContext
         serviceCollection.RegisterDataServices(configuration);
+
+        // Configure authentication and authorization services;
+        serviceCollection.ConfigureAuthenticationServices();
 
         // Configure  Cors
         serviceCollection.ConfigureCors();

@@ -1,5 +1,5 @@
 ﻿using UHB.Features.ApplicationManagement.Models;
-using UHB.Features.AuthenticationManagement.UserManagement.Models;
+using UHB.Features.AuthenticationManagement.Models;
 
 namespace UHB.Features.StudentManagement.Models;
 
