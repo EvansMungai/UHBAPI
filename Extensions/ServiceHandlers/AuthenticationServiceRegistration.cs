@@ -16,5 +16,7 @@ public static class AuthenticationServiceRegistration
             options.Cookie.SameSite = SameSiteMode.None;
             options.Cookie.SecurePolicy = CookieSecurePolicy.None;
         });
+        services.AddAuthentication();
+        services.AddAuthorization();
     }
 }
