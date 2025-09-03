@@ -13,7 +13,7 @@ public static class AuthenticationServiceRegistration
         {
             options.LoginPath = "/login";
             options.Cookie.HttpOnly = true;
-            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SameSite = SameSiteMode.None;
             options.Cookie.SecurePolicy = CookieSecurePolicy.None;
         });
     }
