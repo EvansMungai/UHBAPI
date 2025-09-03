@@ -9,6 +9,13 @@ public static class AuthenticationServiceRegistration
     public static void ConfigureAuthenticationServices(this IServiceCollection services)
     {
         services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UhbContext>().AddDefaultTokenProviders();
-        services.AddAuthentication();
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = "/login";
+            options.Cookie.HttpOnly = true;
+            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+        });
+        services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie(IdentityConstants.ApplicationScheme);
     }
 }
