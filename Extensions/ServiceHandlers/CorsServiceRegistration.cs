@@ -8,7 +8,7 @@ public static class CorsServiceRegistration
         {
             options.AddDefaultPolicy(builder =>
             {
-                builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                builder.WithOrigins("http://localhost:4200", "https://uhb.vercel.app").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             });
         });
     }
