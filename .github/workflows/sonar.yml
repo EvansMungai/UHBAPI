@@ -46,6 +46,6 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.qualitygate.wait=true
 
-          dotnet build --configuration Release
+          dotnet build UHB.sln --configuration Release
 
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
