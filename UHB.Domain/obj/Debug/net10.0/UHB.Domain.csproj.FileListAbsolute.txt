@@ -1,0 +1,13 @@
+D:\Projects\UHBAPI\UHB.Domain\bin\Debug\net10.0\UHB.Domain.deps.json
+D:\Projects\UHBAPI\UHB.Domain\bin\Debug\net10.0\UHB.Domain.dll
+D:\Projects\UHBAPI\UHB.Domain\bin\Debug\net10.0\UHB.Domain.pdb
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.csproj.AssemblyReference.cache
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.AssemblyInfoInputs.cache
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.AssemblyInfo.cs
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.sourcelink.json
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.dll
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\refint\UHB.Domain.dll
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\UHB.Domain.pdb
+D:\Projects\UHBAPI\UHB.Domain\obj\Debug\net10.0\ref\UHB.Domain.dll
