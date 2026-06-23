@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UHB.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c620fd573bd127b800d100bff091c173aff12eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7e6caba91136f015acfb8f1ff24c686e3515777")]
 [assembly: System.Reflection.AssemblyProductAttribute("UHB.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UHB.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

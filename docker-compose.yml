@@ -1,0 +1,7 @@
+services:
+  uhb:
+    image: ${DOCKER_REGISTRY-}uhb
+    container_name: uhb
+    build:
+      context: .
+      dockerfile: UHB/Dockerfile
