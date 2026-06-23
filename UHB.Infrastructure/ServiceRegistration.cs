@@ -16,7 +16,6 @@ public static class ServiceRegistration
     private static void RegisterDbServices(this IServiceCollection services, IConfiguration configuration)
     {
         string? connectionString = configuration.GetConnectionString("UHB");
-        Console.WriteLine(connectionString);
         services.AddDbContext<UhbContext>(
             options =>
             {
