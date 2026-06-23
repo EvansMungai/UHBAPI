@@ -37,15 +37,18 @@ jobs:
 
       - name: Build and Analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Pulled securely from your GitHub Secrets
+          PROJECT_KEY: ${{ secrets.PROJECT_KEY }}
+          ORGANIZATION_KEY: ${{ secrets.ORGANIZATION_KEY }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+
         run: |
           dotnet-sonarscanner begin \
-            /k:"${{ secrets.PROJECT_KEY }}" \
-            /o:"${{ secrets.ORGANIZATION_KEY }}" \
+            /k:"$PROJECT_KEY" \
+            /o:"$ORGANIZATION_KEY" \
             /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.token="$SONAR_TOKEN" \
             /d:sonar.qualitygate.wait=true
 
           dotnet build UHB.sln --configuration Release
 
-          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
