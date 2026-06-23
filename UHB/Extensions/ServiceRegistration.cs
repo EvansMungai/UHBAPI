@@ -18,7 +18,7 @@ public static class ServiceRegistration
         serviceCollection.RegisterInfrastructureServices(configuration);
 
         // Configure authentication and authorization services;
-        serviceCollection.ConfigureAuthenticationServices();
+        serviceCollection.ConfigureAuthenticationServices(configuration);
 
         // Configure  Cors
         serviceCollection.ConfigureCors();

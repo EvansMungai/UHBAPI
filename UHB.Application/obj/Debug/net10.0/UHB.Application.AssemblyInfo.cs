@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UHB.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce1b5dcebdc6d89dfbd112670158b1624efe3cf0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c620fd573bd127b800d100bff091c173aff12eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("UHB.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UHB.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

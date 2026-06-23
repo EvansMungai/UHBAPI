@@ -13,7 +13,7 @@ public class UserManagementRoutes : IRouteRegistrar
     }
     public void MapUserManagementRoutes(WebApplication webApplication)
     {
-        var app = webApplication.MapGroup("").WithTags("User Management");
+        var app = webApplication.MapGroup("").WithTags("User Management").RequireAuthorization("CanAccessManagement");
         app.MapPost("/control", (UserManagementHandler handler, SpecialRegisterRequest specialUser) => handler.RegisterSpecialUsers(specialUser));
         app.MapGet("/users", (UserManagementHandler handler) => handler.GetUsers());
         app.MapGet("/user/{id}", (UserManagementHandler handler, string id) => handler.GetUser(id));

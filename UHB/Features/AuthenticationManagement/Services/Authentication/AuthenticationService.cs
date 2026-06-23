@@ -41,8 +41,8 @@ public class AuthenticationService : IAuthenticationService
             throw new ArgumentException("An error occurred in trying to create the user.");
         }
 
-        await _userManager.AddToRoleAsync(user, "Customer");
-        IList<string> roles = new List<string> { "Customer" };
+        await _userManager.AddToRoleAsync(user, "Student");
+        IList<string> roles = new List<string> { "Student" };
 
         string token = _tokenService.GenerateJwtToken(user, platform, roles);
 
