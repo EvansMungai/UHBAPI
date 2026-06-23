@@ -1,0 +1,51 @@
+name: SonarQube Quality Gate
+
+on: 
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonar-scan:
+    name: Run SonarQube Cloud Analysis
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0'
+
+      - name: Install SonarScanner Tool
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Build and Analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Pulled securely from your GitHub Secrets
+        run: |
+          dotnet-sonarscanner begin \
+            /k:"${{ secrets.PROJECT_KEY }}" \
+            /o:"${{ secrets.ORGANIZATION_KEY }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.qualitygate.wait=true
+
+          dotnet build --configuration Release
+
+          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
