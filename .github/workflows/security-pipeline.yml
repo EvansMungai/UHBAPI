@@ -79,7 +79,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
-          sarif_file: 'trivy-fs.results.sarif'
+          sarif_file: 'trivy-fs-results.sarif'
           category: 'trivy-fs'
 
       - name: Build Local Docker image
@@ -96,7 +96,7 @@ jobs:
           severity: 'HIGH,CRITICAL'
 
       - name: Upload Image Scan Results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: 'trivy-image-results.sarif'
