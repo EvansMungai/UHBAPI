@@ -61,6 +61,7 @@ jobs:
 
   trivy-sca: 
     name: Trivy Dependency & Image Scan
+    needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
