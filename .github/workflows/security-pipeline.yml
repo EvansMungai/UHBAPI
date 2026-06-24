@@ -59,13 +59,21 @@ jobs:
 
           dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
 
-  trivy-sca: 
+  trivy-scan: 
     name: Trivy Dependency & Image Scan
     needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0'
+
+      - name: Restore dependencies
+        run: dotnet restore
 
       - name: Scan Repository files
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
@@ -109,6 +117,7 @@ jobs:
           format: 'sarif'
           output: 'trivy-image-results.sarif'
           severity: 'HIGH,CRITICAL'
+          exit-code: 1
 
       - name: Upload Image Scan Results to GitHub
         uses: github/codeql-action/upload-sarif@v4
@@ -116,12 +125,3 @@ jobs:
         with:
           sarif_file: 'trivy-image-results.sarif'
           category: 'trivy-image'
-
-      - name: Fail pipeline if vulnerabilites exist
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
-        with:
-          scan-type: 'image'
-          image-ref: 'uhbapi:${{ github.sha }}'
-          format: 'table'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
