@@ -84,7 +84,7 @@ jobs:
 
       - name: Build Local Docker image
         run: | 
-          docker build -t uhbapi:${{ github.sha }} .
+          docker build -t uhbapi:${{ github.sha }} -f UHB/Dockerfile .
 
       - name: Scan the build image
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
