@@ -65,7 +65,7 @@ jobs:
           dotnet-version: '10.0'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore UHB.sln
 
       - name: Scan Repository files
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
