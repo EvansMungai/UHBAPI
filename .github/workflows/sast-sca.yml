@@ -1,14 +1,6 @@
 name: Secure SAST & SCA Pipeline
 
 on: 
-  push:
-    branches:
-      - dev
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * 1'
   workflow_call:
     
 permissions:
