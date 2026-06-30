@@ -1,5 +1,6 @@
 ﻿using UHB.Extensions.RouteHandlers;
 using UHB.Extensions.ServiceHandlers;
+using UHB.Features.AuthenticationManagement.Services.Authentication.Token;
 using UHB.Infrastructure;
 
 namespace UHB.Extensions;
@@ -13,6 +14,8 @@ public static class ServiceRegistration
 
         // Configure AutoMapper Profiles
         serviceCollection.ConfigureMappingProfiles();
+
+        serviceCollection.Configure<JwtOptions>(configuration.GetSection("JWT"));
 
         // Configure DBContext
         serviceCollection.RegisterInfrastructureServices(configuration);

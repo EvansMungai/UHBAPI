@@ -23,7 +23,7 @@ jobs:
           sleep 5
 
       - name: Run ZAP API Scan Action
-        uses: zaproxy/action-api-scan@v0.7.0
+        uses: zaproxy/action-api-scan@5158fe4740e53a2efec746bf986a427f714902ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

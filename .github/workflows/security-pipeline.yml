@@ -13,7 +13,6 @@ on:
   
 permissions:
   contents: read
-  security-events: write
 
 jobs:
   sonar-scan:
@@ -63,6 +62,9 @@ jobs:
     name: Trivy Dependency & Image Scan
     needs: sonar-scan
     runs-on: ubuntu-latest
+    permissions: 
+      contents: read
+      security-events: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
