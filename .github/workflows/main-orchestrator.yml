@@ -1,0 +1,14 @@
+name: Main CI Pipeline Orchestrator
+
+on: 
+  push: 
+    branches:
+      - main
+
+jobs:
+  run-sast-sca:
+    uses: ./.github/workflows/sast-sca.yml
+
+  run-dast:
+    needs: run-sast-sca
+    uses: ./.github/workflows/dast-scan.yml
