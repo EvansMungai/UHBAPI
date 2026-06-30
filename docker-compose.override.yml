@@ -16,3 +16,23 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+      - zap-net
+
+  zap-scanner:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    command: >
+      zap-api-scan.py 
+      -t http://uhb:8080/swagger/v1/swagger.json 
+      -f openapi 
+      -r api-report.html
+    volumes:
+      - .:/zap/wrk:rw
+    networks:
+      - zap-net
+    depends_on:
+      - uhb
+
+networks:
+  zap-net:
+    driver: bridge

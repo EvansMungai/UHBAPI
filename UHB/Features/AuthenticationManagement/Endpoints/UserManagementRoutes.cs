@@ -25,7 +25,7 @@ public class UserManagementRoutes : IRouteRegistrar
     }
     public void MapRoleManagmentRoutes(WebApplication webApplication)
     {
-        var app = webApplication.MapGroup("").WithTags("Role Management");
+        var app = webApplication.MapGroup("").WithTags("Role Management").RequireAuthorization("CanAccessManagement");
         app.MapGet("/roles", (UserManagementHandler handler) => handler.GetRoles());
         app.MapGet("/role/{roleName}", (UserManagementHandler handler, string roleName) => handler.EnsureRoleExists(roleName));
         app.MapPost("/role", (UserManagementHandler handler, string role) => handler.CreateRole(role));
