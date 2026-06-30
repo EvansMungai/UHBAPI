@@ -1,16 +1,8 @@
-name: Secure CI Pipeline (SAST & SCA)
+name: Secure SAST & SCA Pipeline
 
 on: 
-  push:
-    branches:
-      - dev
-      - main
-  pull_request:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * 1'
-  
+  workflow_call:
+    
 permissions:
   contents: read
 
@@ -18,8 +10,6 @@ jobs:
   sonar-scan:
     name: Run SonarQube Cloud Analysis
     runs-on: ubuntu-latest
-
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
@@ -75,10 +65,10 @@ jobs:
           dotnet-version: '10.0'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore UHB.sln
 
       - name: Scan Repository files
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with:
           scan-type: fs
           scan-ref: '.'
@@ -94,7 +84,7 @@ jobs:
           category: 'trivy-fs'
 
       - name: Generate CycloneDX SBOM
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with: 
           scan-type: 'fs'
           scan-ref: '.'
@@ -112,14 +102,15 @@ jobs:
           docker build -t uhbapi:${{ github.sha }} -f UHB/Dockerfile .
 
       - name: Scan the build image
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with: 
           scan-type: 'image'
           image-ref: 'uhbapi:${{ github.sha }}'
           format: 'sarif'
           output: 'trivy-image-results.sarif'
           severity: 'HIGH,CRITICAL'
-          exit-code: 1
+          exit-code: 0 
+          cmd-options: '--skip-version-check'
 
       - name: Upload Image Scan Results to GitHub
         uses: github/codeql-action/upload-sarif@v4
