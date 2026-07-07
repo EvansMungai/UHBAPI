@@ -20,6 +20,8 @@ jobs:
         uses: zricethezav/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e
         with:
           args: detect --source . --no-banner --redact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   sonar-scan:
     name: Run SonarQube Cloud Analysis
