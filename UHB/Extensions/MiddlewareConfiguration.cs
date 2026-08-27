@@ -1,4 +1,5 @@
-﻿using UHB.Extensions.RouteHandlers;
+﻿using UHB.Extensions.ExceptionHandler;
+using UHB.Extensions.RouteHandlers;
 
 namespace UHB.Extensions;
 
@@ -11,6 +12,7 @@ public static class MiddlewareConfiguration
             context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
             await next();
         });
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
