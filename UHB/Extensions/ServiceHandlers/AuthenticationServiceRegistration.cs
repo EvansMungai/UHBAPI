@@ -11,8 +11,8 @@ public static class AuthenticationServiceRegistration
 {
     public static void ConfigureAuthenticationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        string? jwtKey = configuration["JWT:Key"];
-        string? jwtIssuer = configuration["JWT:SecretIssuer"];
+        string? jwtKey = configuration["JWT:SecretKey"];
+        string? jwtIssuer = configuration["JWT:Issuer"];
         string? webAudience = configuration["JWT:AUDIENCES:WEB"];
         string? posAudience = configuration["JWT:AUDIENCES:POS"];
         string? mobileAudience = configuration["JWT:AUDIENCES:MOBILE"];
