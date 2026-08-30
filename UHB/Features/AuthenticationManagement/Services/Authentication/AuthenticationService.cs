@@ -51,6 +51,7 @@ public class AuthenticationService : IAuthenticationService
             token,
             user = new
             {
+                user.UserName,
                 user.RegNo,
                 roles
             }
@@ -89,6 +90,7 @@ public class AuthenticationService : IAuthenticationService
             token,
             user = new
             {
+                user.UserName,
                 user.RegNo,
                 roles = userRoles
             }
