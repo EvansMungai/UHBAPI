@@ -1,4 +1,5 @@
-﻿using UHB.Application.Dtos.Application;
+﻿using System.Runtime.InteropServices;
+using UHB.Application.Dtos.Application;
 using UHB.Application.Interface;
 using UHB.Domain.Entities;
 
@@ -23,6 +24,13 @@ namespace UHB.Features.ApplicationManagement.Services
         {
             ApplicationDto? application = await _repo.GetSingleAsync<ApplicationDto>(a => a.ApplicationNo == id);
             return application == null ? Results.NotFound($"Application with application id ={id} was not found") : Results.Ok(application);
+        }
+
+        public async Task<IResult> GetUserApplications(string regNo)
+        {
+            regNo = getRegNo(regNo);
+            List<ApplicationDto> applications = await _repo.GetFilteredAsync<ApplicationDto>(a => a.RegistrationNo == regNo);
+            return applications is null || applications.Count == 0 ? Results.NotFound("No user applications were found") : Results.Ok(applications);
         }
         public async Task<IResult> GetAcceptedApplications()
         {
@@ -65,5 +73,13 @@ namespace UHB.Features.ApplicationManagement.Services
             return Results.Ok("Application with application number {id} has been deleted");
 
         }
+
+        #region Utilities
+        private static string getRegNo(string regNo)
+        {
+            regNo = regNo.Replace("%2F", "/");
+            return regNo;
+        }
+        #endregion
     }
 }
