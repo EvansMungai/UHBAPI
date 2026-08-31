@@ -14,6 +14,7 @@ public class ApplicationRoutes : IRouteRegistrar
     {
         var app = application.MapGroup("").WithTags("Application");
         app.MapGet("/applications", (ApplicationHandler handler) => handler.GetApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<ApplicationDto>>().RequireAuthorization("CanAccessApplications");
+        app.MapGet("/user-applications", (ApplicationHandler handler, string regNo) => handler.GetUserApplication(regNo)).WithTags("Applications").Produces(200).Produces(404).Produces<List<ApplicationDto>>().RequireAuthorization("CanAccessEverything");
         app.MapGet("/accepted-applications", (ApplicationHandler handler) => handler.GetAcceptedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<ApplicationDto>>().RequireAuthorization("CanAccessAcceptedApplications");
         app.MapGet("/assigned-applications", (ApplicationHandler handler) => handler.GetAssignedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<ApplicationDto>>().RequireAuthorization("CanAccessAcceptedApplications");
         app.MapGet("/rejected-applications", (ApplicationHandler handler) => handler.GetRejectedApplications()).WithTags("Applications").Produces(200).Produces(404).Produces<List<ApplicationDto>>().RequireAuthorization("CanAccessApplications");

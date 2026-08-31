@@ -15,6 +15,7 @@ public class ApplicationHandler : IHandler
 
     public Task<IResult> GetApplications() => _applicationService.GetApplications();
     public Task<IResult> GetApplicationById(int id) => _applicationService.GetApplication(id);
+    public Task<IResult> GetUserApplication(string regNo) => _applicationService.GetUserApplications(regNo);
     public Task<IResult> GetAcceptedApplications() => _applicationService.GetAcceptedApplications();
     public Task<IResult> GetAssignedApplications() => _applicationService.GetAssignedApplications();
     public Task<IResult> GetRejectedApplications() => _applicationService.GetRejectedApplications();

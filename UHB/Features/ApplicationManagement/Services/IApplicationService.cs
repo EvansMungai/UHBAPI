@@ -6,6 +6,7 @@ namespace UHB.Features.ApplicationManagement.Services
     {
         Task<IResult> GetApplications();
         Task<IResult> GetApplication(int id);
+        Task<IResult> GetUserApplications(string regNo);
         Task<IResult> GetAcceptedApplications();
         Task<IResult> GetAssignedApplications();
         Task<IResult> GetRejectedApplications();
