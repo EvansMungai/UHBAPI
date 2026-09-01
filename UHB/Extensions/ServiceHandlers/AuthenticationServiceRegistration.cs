@@ -68,6 +68,7 @@ public static class AuthenticationServiceRegistration
         services.AddAuthorization(options =>
         {
             options.AddPolicy("CanAccessApplications", policy => policy.RequireRole("Admin", "Housekeeper"));
+            options.AddPolicy("CanAccessApplicationDetails", policy => policy.RequireRole("Admin", "Housekeeper", "Student"));
             options.AddPolicy("CanAccessAcceptedApplications", policy => policy.RequireRole("Admin", "Housekeeper", "Matron"));
             options.AddPolicy("CanAccessManagement", policy => policy.RequireRole("Admin"));
             options.AddPolicy("CanAccessEverything", policy => policy.RequireRole("Admin", "Housekeeper", "Matron", "Student"));
