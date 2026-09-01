@@ -9,6 +9,5 @@ public class ApplicationUpdateStatusDto : IMapFrom<ApplicationDomain>
     [Required]
     public required string Status { get; set; }
 
-    [Required]
-    public required string PreferredHostel { get; set; }
+    public string PreferredHostel { get; set; }
 }
