@@ -2,5 +2,5 @@
 
 public interface IRouteRegistrar
 {
-    void RegisterRoutes(WebApplication application);
+    void MapEndpoints(IEndpointRouteBuilder app);
 }

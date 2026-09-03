@@ -11,7 +11,7 @@ public class RouteHelper
     {
         foreach (var registrar in _routeRegistrars)
         {
-            registrar.RegisterRoutes(app);
+            registrar.MapEndpoints(app);
         }
     }
 }
