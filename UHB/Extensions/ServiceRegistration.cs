@@ -29,9 +29,6 @@ public static class ServiceRegistration
         // Configure Application Services
         serviceCollection.RegisterFeatureServices();
 
-        // configure Route Handlers
-        serviceCollection.RegisterHandlers();
-
         // Configure Route registrar
         serviceCollection.RegisterRouteRegistrars();
 
